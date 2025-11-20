@@ -1,0 +1,8 @@
+# Example environment configuration for Café Fausse
+
+# Replace with your actual Postgres URL, for example:
+# postgresql+psycopg2://USER:PASSWORD@localhost:5432/cafe_fausse
+DATABASE_URL=postgresql+psycopg2://postgres:iMAC%40322@localhost:5432/cafe_fausse
+
+# Comma-separated list of allowed origins for CORS (frontend URLs)
+CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
