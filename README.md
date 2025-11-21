@@ -1,6 +1,6 @@
-Alexander Arzola
-Web Application & Interface Design Project - 11/21/2025
-
+# Alexander Arzola
+# Web Application & Interface Design Project - 11/21/2025
+# https://github.com/aarzola5010/cafe-fausse/
 
 # Café Fausse Website
 
