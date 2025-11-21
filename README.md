@@ -8,7 +8,7 @@ Cafe Fausse is a full-stack, responsive web application built with **React (JSX)
 
 # Development and Tools Used
 
-The AI model used to create the code was Chatgpt 5.  This was done evaluating other AI models and it was recommended as one of the most recommended for Web Development.  The Code Modifications were done using Visual Studio Code (VSC)
+The AI model used to create the code was Chatgpt 5.  This was done evaluating other AI models and it was the most recommended for Web Development.  The Code Modifications were done using Visual Studio Code (VSC)
 
 Used Vite Dev Server 5.0 for running front-end / React JSCx files. Used Vite Debug package/logs capability to troubleshoot and root cause issues with front end when calling back end through proxy.
 
@@ -47,14 +47,14 @@ Deployed Gunicorn locally to host backend
 Download PostgreSQL form: https://www.postgresql.org/download/
 
 When installing PostgreSQL set the following as specified:
--database superuser: postgres
--password: iMAC322
--port number the server to listen on: 5432
+- database superuser: postgres
+- password: iMAC322
+- port number the server to listen on: 5432
 
 Open pgAdmin4
-	-Click on Servers and enter the password: iMAC322
-	-Right-click Databases → Create → Database.
-	-Enter name cafe_fausse, then Save.
+- Click on Servers and enter the password: iMAC322
+- Right-click Databases → Create → Database.
+- Enter name cafe_fausse, then Save.
 
 COMMENTS: That’s all—your empty DB is ready.
 
@@ -62,9 +62,10 @@ COMMENTS: That’s all—your empty DB is ready.
 
 https://github.com/aarzola5010/cafe-fausse
 
-In Project root directory (cafe-fausse-main directory), rename `env_file` to `.env` using "mv env_file.txt .env" and update `DATABASE_URL` with your Postgres credentials below: (already done)
+In Project root directory (cafe-fausse-main directory): 
+- Rename `env_file` to `.env` using "mv env_file.txt .env"
+- Make sure the  `DATABASE_URL` of .env file is updated the Postgres credentials below: (already done)
 
-create an .env file with the contents below:
 DATABASE_URL=postgresql+psycopg2://postgres:iMAC322@localhost:5432/cafe_fausse
 CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 
@@ -96,8 +97,8 @@ flask run --port 8000
 Exit flask dev server by pressing CTRL+C
 
 COMMENTS:
--Make sure flask dev server launches
--On first run, database tables are created automatically.
+- Make sure flask dev server launches
+- On first run, database tables are created automatically.
 
 ## Back End Deployment
 
@@ -188,12 +189,12 @@ export default defineConfig({
   }
 
 
-2)To Turn on Vite’s debug logs
-Vite uses the debug package. Enable it with an env var (MAC OS/ Linux)
+2) To Turn on Vite’s debug logs
+- Vite uses the debug package. Enable it with an env var (MAC OS/ Linux)
+```bash
 cd frontend
 DEBUG=vite:* npm run dev
-
-
+```
 3) API Endpoints Tests
 
 - `GET /api/health` — health check
