@@ -1,0 +1,280 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset0 HelveticaNeue;\f2\fnil\fcharset0 LucidaGrande;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww30480\viewh16560\viewkind0
+\deftab560
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b\fs26 \cf0 Alexander Arzola\
+Web Application &Interface Design Project - 11/21/2025\
+\
+\
+# Caf\'e9 Fausse Website
+\f1\b0 \
+\
+Cafe Fausse is a full-stack, responsive web application built with 
+\f0\b **React (JSX)**
+\f1\b0  on the front-end and 
+\f0\b **Flask + PostgreSQL**
+\f1\b0  on the back-end.\
+\
+
+\f0\b # Caf\'e9 Fausse \
+\
+Development and Tools Used
+\f1\b0 \
+\
+The AI model used to create the code was Chatgpt 5.  This was done evaluating other AI models and it was recommended as one of the most recommended for Web Development.  The Code Modifications were done using Visual Studio Code (VSC)\
+\
+Used Vite Dev Server 5.0 for running front-end / React JSCx files. Used Vite Debug package/logs capability to troubleshoot and root cause issues with front end when calling back end through proxy.\
+\
+Used Flask to run the Back End Dev Environment.\
+\
+When running frontend and backend separately during development, a proxy was added for /api in vite.config.js.  This helped with the development and troubleshooting of the website.  It allowed to modify the front end and see the results without to have to restart back end and deal with CORS Configuration/errors.\
+\
+
+\f0\b Final Deployment
+\f1\b0 \
+\
+Two local servers in my iMAC PC:\
+Gunicorn / Flask 
+\f2 \uc0\u8594 
+\f1  http://127.0.0.1:8000 (for FLASK API)\
+Vite dev 
+\f2 \uc0\u8594 
+\f1  http://localhost:5173 (React App UI)\
+Both connected via proxy\
+\
+Deployed Gunicorn locally to host backend\
+\
+
+\f0\b Cafe Fausse Features (per SRS)
+\f1\b0 \
+\
+- Home, Menu, Reservations, About Us, and Gallery pages\
+- Email newsletter signup (validated, persisted)\
+- Reservation system with availability checks and random table assignment (30 tables)\
+- Lightbox gallery with awards and reviews\
+- Responsive styling using CSS Grid/Flexbox\
+- RESTful Flask API, PostgreSQL via SQLAlchemy\
+- CORS configured for local dev\
+\
+
+\f0\b # Instructions on How to run the solution locally 
+\f1\b0 \
+\
+
+\f0\b 1) Backend (Flask + Postgres)
+\f1\b0 \
+\
+1. Create a PostgreSQL database, e.g. `cafe_fausse`.\
+\
+Download PostgreSQL form: https://www.postgresql.org/download/\
+When installing PostgreSQL set the following as specified:\
+database superuser: postgres\
+password: iMAC322\
+port number the server to listen on: 5432\
+\
+Open pgAdmin4\
+Click on Servers and enter the password: iMAC322\
+Right-click Databases 
+\f2 \uc0\u8594 
+\f1  Create 
+\f2 \uc0\u8594 
+\f1  Database.\
+Enter name cafe_fausse, then Save.\
+\
+COMMENTS: That\'92s all\'97your empty DB is ready.\
+\
+2. Download all the source code used (front-end and back-end) for the Cafe-Fausse website from the GitHub repository:\
+\
+\pard\pardeftab560\slleading20\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://github.com/aarzola5010/cafe-fausse"}}{\fldrslt \cf0 https://github.com/aarzola5010/cafe-fausse}}\
+\
+In Project root directory (cafe-fausse-main directory), rename `env_file` to `.env` using "mv env_file.txt .env" and update `DATABASE_URL` with your Postgres credentials below: (already done)\
+\
+create an .env file with the contents below:\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 # Replace with your actual Postgres URL, for example:
+\f1\b0 \
+
+\f0\b # postgresql+psycopg2://USER:PASSWORD@localhost:5432/cafe_fausse
+\f1\b0 \
+DATABASE_URL=postgresql+psycopg2://postgres:iMAC322@localhost:5432/cafe_fausse\
+\
+
+\f0\b # Comma-separated list of allowed origins for CORS (frontend URLs)
+\f1\b0 \
+CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173\
+\
+\
+3. Create a virtual environment and install dependencies:\
+\
+```bash\
+cd backend\
+python3 -m venv .venv\
+source .venv/bin/activate   # Windows: .venv\\Scripts\\activate\
+pip install flask\
+pip install flask-cors\
+pip install SQLAlchemy\
+pip install psycopg2-binary\
+pip install python-dotenv\
+\
+```\
+\
+4. Run the API:\
+\
+```bash\
+export FLASK_APP=backend.app  #from /backend directory\
+\
+cd ..  #To go up one level to the project root (if currently in backend/)\
+flask run --port 8000\
+\
+```\
+\
+Exit flask dev server by pressing CTRL+C\
+\
+COMMENTS:\
+Make sure flask dev server launches\
+On first run, database tables are created automatically.\
+\
+
+\f0\b Back End Deployment
+\f1\b0 \
+\
+1. Install and configure Gunicorn (backend)\
+Activate your backend venv and install gunicorn\
+\
+From project root (cafe-fausse-main directory) execute the following commands:\
+source backend/.venv/bin/activate     # activate your virtualenv\
+pip install gunicorn                  # install gunicorn into that venv\
+\
+\
+2: Make sure backend is a package (if not present) by executing the following command:\
+touch backend/
+\f0\b __init__
+\f1\b0 .py\
+\
+This lets Python import backend.app as a module. In backend/app.py you already present:\
+app = create_app()\
+So Gunicorn can use that.\
+\
+Step 3: Run Gunicorn\
+Still from the project root (with the venv active):\
+gunicorn -b 127.0.0.1:8000 backend.app:app\
+\
+Explanation:\
+-b 127.0.0.1:8000 
+\f2 \uc0\u8594 
+\f1  bind Gunicorn to localhost port 8000\
+backend.app:app 
+\f2 \uc0\u8594 
+\f1  module backend.app, variable app\
+You can also add --reload while developing so Gunicorn restarts on code changes:\
+gunicorn --reload -b 127.0.0.1:8000 backend.app:app\
+\
+Step 4: Test the API directly\
+In a second terminal:\
+curl -i http://127.0.0.1:8000/api/health\
+You should see something like:\
+HTTP/1.1 200 OK\
+...\
+\{"status":"ok"\}\
+If that works, Gunicorn is correctly serving Caf\'e9 Fausse backend.\
+\
+\
+\
+
+\f0\b 2) Frontend (React + Vite)
+\f1\b0 \
+\
+```bash\
+cd frontend\
+npm install\
+npm run dev\
+# App runs at http://localhost:5173\
+\
+to open web site type the following in the browser:  http://localhost:5173\
+```\
+\
+COMMENTS:\
+Now two local servers are running:\
+Gunicorn / Flask 
+\f2 \uc0\u8594 
+\f1  http://127.0.0.1:8000 (API)\
+Vite dev 
+\f2 \uc0\u8594 
+\f1  http://localhost:5173 (React UI)\
+\
+Advantages of Using a Proxy (Vite 
+\f2 \uc0\u8594 
+\f1  Gunicorn)\
+1. No CORS problems in development\
+Without a proxy:\
+Frontend runs at: http://localhost:5173\
+Backend runs at: http://127.0.0.1:8000\
+These are different origins, so every API call (like /api/reservations) triggers CORS checks.\
+Symptoms:\
+CORS error in the browser\
+Need to configure allowed origins\
+Need to restart backend every .env change\
+With a proxy:\
+Requests from React appear to come from localhost:5173\
+Vite forwards /api/... internally to Gunicorn\
+Browser never sees the cross-origin hop\
+No CORS configuration, no CORS errors.\
+This alone is usually enough reason to use a proxy.\
+\
+\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b\fs28 \cf0 Things done that helped during Development/Integration/Development Phase
+\f1\b0\fs26 \
+\pard\pardeftab560\slleading20\pardirnatural\partightenfactor0
+\cf0 \
+\
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\b \cf0 1) For Connecting Frontend to Backend the following was done:
+\f1\b0 \
+\
+For running frontend and backend separately during dev, a proxy was added for /api in vite.config.js.  This helped with the development/troubleshooting of the website.\
+\
+Created in `frontend/vite.config.js` a proxy section:\
+\
+export default defineConfig(\{\
+  plugins: [react(), apiRequestLogger()],\
+  server: \{\
+    port: 5173,\
+    proxy: \{\
+      '/api': \{\
+        target: 'http://127.0.0.1:8000',\
+        changeOrigin: true\
+      \}\
+    \}\
+  \}\
+\
+\
+\
+
+\f0\b 2)To Turn on Vite\'92s debug logs
+\f1\b0 \
+Vite uses the debug package. Enable it with an env var:\
+macOS/Linux:\
+cd frontend\
+DEBUG=vite:* npm run dev\
+\
+(Already configured to run on port 5173; add the proxy if needed.)\
+\
+
+\f0\b 3) API Endpoints Tests
+\f1\b0 \
+\
+- `GET /api/health` \'97 health check\
+- `POST /api/newsletter` \'97 body: `\{ email, name \}`\
+- `GET /api/reservations/availability?datetime=YYYY-MM-DDTHH:MM` \'97 returns available tables\
+- `POST /api/reservations` \'97 body: `\{ name, email, phone?, guests, datetime \}`\
+}
